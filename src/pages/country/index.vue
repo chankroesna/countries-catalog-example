@@ -215,7 +215,7 @@ const clearSearch = () => {
           <img
             :src="selectedCountry.flags?.png"
             :alt="selectedCountry.flags?.alt"
-            class="block h-auto w-full max-w-full bg-gray-100 shadow-2xl"
+            class="block w-full max-w-full bg-gray-100 shadow-2xl"
           />
           <p><b>{{ selectedCountry.name?.official }}</b></p>
           <div v-html="displayCountryDetail()" class="max-h-64 overflow-y-auto"> </div>
