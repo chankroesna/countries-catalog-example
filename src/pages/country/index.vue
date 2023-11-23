@@ -3,7 +3,7 @@ import { computed, ref, reactive, watch } from 'vue'
 import _ from 'lodash'
 import axios from 'axios'
 import { useMainStore } from '@/stores/main'
-import { mdiMagnify } from '@mdi/js'
+import { mdiMagnify, mdiCloseCircle } from '@mdi/js'
 import { useFuse } from '@vueuse/integrations/useFuse'
 import SectionMain from '@/components/SectionMain.vue'
 import CardBox from '@/components/CardBox.vue'
@@ -51,7 +51,7 @@ const data = reactive({value: results.value})
 
 watch(results, (newResults) => {
   data.value = newResults
-  resetSort()
+  resetSortAndCurrentPage()
 })
 
 const itemsPaginated = computed(() =>
@@ -172,8 +172,16 @@ const onSort = () => {
   data.value = tmp
 }
 
-const resetSort = () => {
-  sortAsc.value = sortDesc.value =  false
+const resetSortAndCurrentPage = () => {
+  sortAsc.value = sortDesc.value = false
+  currentPage.value = 0
+}
+
+const clearSearch = () => {
+  if (searchText.value != '') {
+    searchText.value = ''
+    resetSortAndCurrentPage()
+  }
 }
 
 </script>
@@ -192,7 +200,12 @@ const resetSort = () => {
               />
             </div>
             <input type="search" v-model="searchText" class="block p-4 pl-10 w-full rounded-sm border border-gray-300 focus:ring-blue-700 focus:border-blue-700" placeholder="Country Name">
-            <div class="text-red-400 mt-2.5 absolute">
+            <div class="flex absolute inset-y-0 right-0 items-center pr-3">
+              <BaseButton
+                :icon="mdiCloseCircle"
+                small
+                @click="clearSearch"
+              />
             </div>
         </div>
       </CardBox>

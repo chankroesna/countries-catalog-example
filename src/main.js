@@ -18,8 +18,6 @@ const mainStore = useMainStore(pinia)
 
 // Fetch sample data
 mainStore.fetchCountries()
-mainStore.fetchSampleClients()
-mainStore.fetchSampleHistory()
 
 // Default title tag
 const defaultDocumentTitle = 'Admin One Vue 3 Tailwind'
